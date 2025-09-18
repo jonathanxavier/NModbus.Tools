@@ -22,16 +22,19 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
 
         protected PointsViewModelBase(ISlaveExplorerContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context != null)
+            {
+                _context = context;
 
-            _context = context;
+                ReadCommand = new RelayCommand(Read, CanRead);
+                WriteCommand = new RelayCommand(Write, CanWrite);
+                PollCommand = new RelayCommand(Poll, CanPoll);
+                ClearCommand = new RelayCommand(Clear);
 
-            ReadCommand = new RelayCommand(Read, CanRead);
-            WriteCommand = new RelayCommand(Write, CanWrite);
-            PollCommand = new RelayCommand(Poll, CanPoll);
-            ClearCommand = new RelayCommand(Clear);
-
-            NumberOfPoints = 10;
+                NumberOfPoints = 10;
+            }
+            else
+                throw new ArgumentNullException(nameof(context));
         }
 
         public ICommand ReadCommand { get; }
@@ -170,15 +173,14 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
             //Iterate through the new number of registers
             for (int index = 0; index < NumberOfPoints; index++)
             {
-                TPointViewModel registerViewModel;
 
                 var registerIndex = (ushort)(index + StartAddress);
 
-                if (!existingValues.TryGetValue(registerIndex, out registerViewModel))
+                if (!existingValues.TryGetValue(registerIndex, out TPointViewModel registerViewModel))
                 {
                     registerViewModel = new TPointViewModel();
 
-                    registerViewModel.Initialize(registerIndex, default(TPointValue));
+                    registerViewModel.Initialize(registerIndex, default);
                 }
 
                 newRegisters.Add(registerViewModel);

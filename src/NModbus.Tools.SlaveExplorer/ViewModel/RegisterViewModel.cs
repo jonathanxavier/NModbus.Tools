@@ -100,14 +100,13 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
             get { return $"0x{Value:x4}"; }
             set
             {
-                ushort converted;
 
                 if (value != null)
                 {
                     value = value.Replace("0x", "");
                 }
 
-                if (ushort.TryParse(value, NumberStyles.AllowHexSpecifier | NumberStyles.HexNumber, null, out converted))
+                if (ushort.TryParse(value, NumberStyles.AllowHexSpecifier | NumberStyles.HexNumber, null, out ushort converted))
                 {
                     Value = converted;
                 }

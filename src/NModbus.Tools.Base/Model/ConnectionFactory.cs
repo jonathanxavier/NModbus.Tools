@@ -87,10 +87,11 @@ namespace NModbus.Tools.Base.Model
             if (connection.Baud <= 0)
                 throw new ArgumentException($"{nameof(connection.Baud)} had an invalid value.");
 
-            var serialPort = new SerialPort(connection.SerialPortName, connection.Baud, connection.Parity, connection.DataBits, connection.StopBits);
-
-            serialPort.ReadTimeout = connection.ReadTimeout;
-            serialPort.WriteTimeout = connection.WriteTimeout;
+            var serialPort = new SerialPort(connection.SerialPortName, connection.Baud, connection.Parity, connection.DataBits, connection.StopBits)
+            {
+                ReadTimeout = connection.ReadTimeout,
+                WriteTimeout = connection.WriteTimeout
+            };
 
             serialPort.Open();
 
