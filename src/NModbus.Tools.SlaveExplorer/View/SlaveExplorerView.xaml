@@ -159,7 +159,23 @@
                         </DataGrid>
                     </ControlTemplate>
                     
-               
+                    <!-- Float Grid -->
+                    <ControlTemplate x:Key="FloatGridTemplate">
+                        <DataGrid Margin="4" AutoGenerateColumns="False" IsReadOnly="False" ItemsSource="{Binding Path=Points}" RowStyle="{StaticResource RowStyle}" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray" CanUserDeleteRows="False" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn IsReadOnly="True" CellTemplate="{StaticResource IsDirtyCellTemplate}"/>
+                                <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" IsReadOnly="True" CellStyle="{StaticResource RegisterDataGridCellStyle}" />
+                                <DataGridTextColumn Header="HEX32" Binding="{Binding Path=Hex}" />
+                                <DataGridTextColumn Header="Decimal32" Binding="{Binding Path=Value}" />
+                                <DataGridTextColumn Header="F1234" Binding="{Binding Path=MSB}" />
+                                <DataGridTextColumn Header="F3412" Binding="{Binding Path=LSB}" />
+                                <DataGridTextColumn Header="F4321" Binding="{Binding Path=Binary}" />
+                                <DataGridTextColumn Header="F2143" Binding="{Binding Path=Signed}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ControlTemplate>
+
+
                 </ResourceDictionary>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
@@ -213,8 +229,19 @@
             
 
             <TabControl Grid.Row="3">
-                
 
+                <TabItem Header="Float Registers" DataContext="{Binding Path=HoldingRegisters}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <ContentControl Template="{StaticResource PointsHeaderTemplate}"/>
+                        <ContentControl Grid.Row="1" Template="{StaticResource FloatGridTemplate}"/>
+                    </Grid>
+                </TabItem>
+                
                 <TabItem Header="Holding Registers" DataContext="{Binding Path=HoldingRegisters}">
                     <Grid>
                         <Grid.RowDefinitions>

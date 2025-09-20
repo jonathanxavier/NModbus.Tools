@@ -38,6 +38,7 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
             Inputs = new InputsViewModel(this);
             HoldingRegisters = new HoldingRegistersViewModel(this);
             InputRegisters = new InputRegistersViewModel(this);
+            FloatRegisters = new FloatRegistersViewModel(this);
 
             SlaveAddress = 1;
 
@@ -232,6 +233,8 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
         public DiscretesViewModel Coils { get; }
 
         public InputsViewModel Inputs { get; }
+
+        public FloatRegistersViewModel FloatRegisters { get; }
 
         public HoldingRegistersViewModel HoldingRegisters { get; }
 

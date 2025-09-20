@@ -99,6 +99,8 @@
     </Compile>
     <Compile Include="ViewModel\DiscretesViewModel.cs" />
     <Compile Include="ViewModel\DiscreteViewModel.cs" />
+    <Compile Include="ViewModel\FloatRegistersViewModel.cs" />
+    <Compile Include="ViewModel\FloatViewModel.cs" />
     <Compile Include="ViewModel\HoldingRegistersViewModel.cs" />
     <Compile Include="ViewModel\InputRegistersViewModel.cs" />
     <Compile Include="ViewModel\InputsViewModel.cs" />
