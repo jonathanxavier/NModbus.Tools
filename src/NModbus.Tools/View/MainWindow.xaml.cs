@@ -1,7 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using NModbus.Tools.SlaveExplorer.View;
+﻿using NModbus.Tools.SlaveExplorer.View;
 using NModbus.Tools.SlaveExplorer.ViewModel;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace NModbus.Tools.View
@@ -48,7 +50,14 @@ namespace NModbus.Tools.View
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(this, "NModbus Tools", "About");
+            object[] attributesTitle = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            object[] attributesCopyright = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+
+            MessageBox.Show(this,
+                $"{((AssemblyTitleAttribute)attributesTitle[0]).Title}\n" +
+                $"{((AssemblyCopyrightAttribute)attributesCopyright[0]).Copyright}\n" +
+                $"Version: {Assembly.GetExecutingAssembly().GetName().Version}\n",
+                "About");
         }
     }
 }

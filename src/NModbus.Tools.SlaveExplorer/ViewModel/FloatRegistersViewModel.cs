@@ -10,12 +10,12 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
 
         protected override uint[] ReadCore(IModbusMaster modbusMaster, byte slaveId, ushort startAddress, ushort numberOfPoints)
         {
-            ushort[] values = modbusMaster.ReadHoldingRegisters(slaveId, startAddress, numberOfPoints);
-            uint[] result = new uint[values.Length / 2];
+            uint[] result = new uint[numberOfPoints];
+            ushort[] values = modbusMaster.ReadHoldingRegisters(slaveId, startAddress, (ushort)(numberOfPoints * 2));
 
-            for (int index = 0; index < numberOfPoints / 2; index += 2)
+            for (int index = 0; index < numberOfPoints; index++)
             {
-                result[index] = ((uint)values[index] << 16) | (uint)values[index + 1];
+                result[index] = (uint)values[(index*2)] | ((uint)values[(index*2) + 1] << 16);
 
             }
             return result;
@@ -24,9 +24,9 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
 
         protected override void WriteCore(IModbusMaster modbusMaster, byte slaveId, ushort startAddress, uint[] values)
         {
-            ushort[] registers = new ushort[values.Length * 2];
+            ushort[] registers = new ushort[values.Length*2];
 
-            for (int index = 0; index < (values.Length * 2); index += 2)
+            for (int index = 0; index < (values.Length); index++)
             {
                 // Convert the uint to a byte array
                 byte[] bytes = new byte[4];
@@ -41,8 +41,8 @@ namespace NModbus.Tools.SlaveExplorer.ViewModel
                 orderedbytes[3] = bytes[3];
 
                 // Convert the byte array back to a ushort
-                registers[index] = BitConverter.ToUInt16(orderedbytes, 0);
-                registers[index+1] = BitConverter.ToUInt16(orderedbytes, 2);
+                registers[(index*2)] = BitConverter.ToUInt16(orderedbytes, 0);
+                registers[(index*2)+1] = BitConverter.ToUInt16(orderedbytes, 2);
 
 
             }

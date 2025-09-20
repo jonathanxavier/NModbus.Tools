@@ -167,10 +167,10 @@
                                 <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" IsReadOnly="True" CellStyle="{StaticResource RegisterDataGridCellStyle}" />
                                 <DataGridTextColumn Header="HEX32" Binding="{Binding Path=Hex}" />
                                 <DataGridTextColumn Header="Decimal32" Binding="{Binding Path=Value}" />
-                                <DataGridTextColumn Header="F1234" Binding="{Binding Path=MSB}" />
-                                <DataGridTextColumn Header="F3412" Binding="{Binding Path=LSB}" />
-                                <DataGridTextColumn Header="F4321" Binding="{Binding Path=Binary}" />
-                                <DataGridTextColumn Header="F2143" Binding="{Binding Path=Signed}" />
+                                <DataGridTextColumn Header="F1234" Binding="{Binding Path=F1234}" />
+                                <DataGridTextColumn Header="F3412" Binding="{Binding Path=F3412}" />
+                                <DataGridTextColumn Header="F4321" Binding="{Binding Path=F4321}" />
+                                <DataGridTextColumn Header="F2143" Binding="{Binding Path=F2143}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </ControlTemplate>
@@ -230,7 +230,7 @@
 
             <TabControl Grid.Row="3">
 
-                <TabItem Header="Float Registers" DataContext="{Binding Path=HoldingRegisters}">
+                <TabItem Header="Float Registers" DataContext="{Binding Path=FloatRegisters}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
